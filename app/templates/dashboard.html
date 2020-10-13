@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}WYD Valland - Dashboard{% endblock %}
+{% block content %}
+<div class="col-md-12">
+    <div class="col-md-12 py-3 elegant-color-dark text-light">
+        Bem-vindo {{session['login']}}
+    </div>
+    <p class="text-center text-uppercase mt-3 text-light col py-3 mb-0 elegant-color-dark rounded-top">Personagens</p>
+    <table class="table text-center table-bordered table-dark table-striped mb-0">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nick</th>
+                <th>Evolução</th>
+                <th>Classe</th>
+                <th>Corpo</th>
+                <th>Exp</th>
+                <th>Level</th>
+                <th>Força</th>
+                <th>Int</th>
+                <th>Dex</th>
+                <th>Cons</th>
+                <th>Guild</th>
+                <th>Guild Level</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(0, 4) %}
+                {% set character = g.structacc.Char[i].MobName.decode() %}
+                {% if character %}
+                    {% set evolucao = {0: 'Mortal', 1: 'Arch', 2: 'Celestial', 3: 'Celestial/SubCelestial', 4: 'SubCelestial', 9: 'SubCelestial'} %}
+                    {% set classe = {0: 'TransKnight', 1: 'Foema', 2: 'BeastMaster', 3: 'Huntress'} %}
+                    {% set guildlevel = {1: 'Membro', 2: 'Medalha Reino', 3: 'Sub Comandante', 4: 'Sub Comandante', 5: 'Sub Comandante', 6: 'Sub Líder', 7: 'Sub Líder', 8: 'Sub Líder', 9: 'Líder'} %}
+                    <tr>
+                        <td>{{i + 1}}</td>
+                        <td>{{g.structacc.Char[i].MobName.decode('latin-1')}}</td>
+                        <td>{{g.structacc.mobExtra[i].ClassMaster}}</td>
+                        <td>{{classe[g.structacc.Char[i].Class]}}</td>
+                        <td>{{g.structitem.id[g.structacc.Char[i].Equip[0].sIndex].Name.decode('latin-1')}}</td>
+                        <td>{{g.structacc.Char[i].Exp}}</td>
+                        <td>{{g.structacc.Char[i].CurrentScore.Level + 1}}</td>
+                        <td>{{g.structacc.Char[i].CurrentScore.Str}}</td>
+                        <td>{{g.structacc.Char[i].CurrentScore.Int}}</td>
+                        <td>{{g.structacc.Char[i].CurrentScore.Dex}}</td>
+                        <td>{{g.structacc.Char[i].CurrentScore.Con}}</td>
+                        <td>{{g.guilds[g.structacc.Char[i].Guild]['guildname']}}</td>
+                        <td>{{g.structacc.Char[i].GuildLevel}}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <p class="text-center text-uppercase mt-3 text-light col py-3 mb-0 elegant-color-dark rounded-top">Meu baú</p>
+    <table class="table text-center table-bordered table-dark table-striped mb-0">
+        <thead>
+            <tr>
+                {% for j in range(0, 5) %}
+                    <th class="bg-white text-dark" style="border: none;" scope="row">Slot</th>
+                    <td class="bg-light text-dark" style="border: none;">Item</td>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(0, 24) %}
+                <tr>
+                    {% for j in range((0 + (i * 5)), (5 + (i * 5))) %}
+                        <th class="bg-dark" scope="row">{{j + 1}}</th>
+                        <td>{{g.structitem.id[g.structacc.Cargo[j].sIndex].Name.decode('latin-1').replace('_', ' ')}}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

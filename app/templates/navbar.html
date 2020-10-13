@@ -1,0 +1,53 @@
+<!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark elegant-color-dark">
+    <a class="navbar-brand" href="#"><img width="100vh" src="{{ url_for('static', filename='img/logo.png') }}"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link {% if 'Início' in page %}active{% endif %}" href="/">
+                    Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Notícias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Downloads</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">Ranking
+                </a>
+                <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+                    <a class="dropdown-item" href="#">Players</a>
+                    <a class="dropdown-item" href="#">Guilds</a>
+                    <a class="dropdown-item" href="#">PvP</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                    aria-labelledby="navbarDropdownMenuLink-333">
+                    {% if g.user is not none %}
+                        <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                        <a class="dropdown-item" href="/logout">Sair</a>
+                    {% else %}
+                        <a class="dropdown-item" href="/login">Entrar</a>
+                        <a class="dropdown-item" href="/register">Cadastrar</a>
+                        <a class="dropdown-item" href="/recovery">Recuperar Conta</a>
+                    {% endif %}
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!--/.Navbar -->

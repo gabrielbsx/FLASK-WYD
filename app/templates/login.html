@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Danger WYD - {{page}}{% endblock %}
+{% block content %}
+<div class="col-md-8 m-auto">
+    <!-- Material form login -->
+    <div class="card">
+    
+        <h5 class="card-header bg-dark white-text text-center py-4">
+            <strong class="text-uppercase">Painel do usuário</strong>
+        </h5>
+    
+        <!--Card content-->
+        <div class="card-body black px-lg-5 pt-0">
+    
+            <!-- Form -->
+            <form class="text-center" style="color: #757575;" method="POST">
+                {{ form.csrf_token }}
+                <div class="md-form">
+                    {{ form.username(class="form-control") }}
+                    <label for="materialLoginFormUser">Usuário</label>
+                    {% if form.errors.username %}
+                        {% for e in form.errors.username %}
+                            <div class="alert alert-danger" role="alert">
+                                {{e}}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+    
+                <!-- Password -->
+                <div class="md-form">
+                    {{ form.password(class="form-control") }}
+                    <label for="materialLoginFormPassword">Senha</label>
+                    {% if form.errors.password %}
+                        {% for e in form.errors.password %}
+                            <div class="alert alert-danger" role="alert">
+                                {{e}}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+    
+                <!-- Sign in button -->
+                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Entrar</button>
+    
+            </form>
+            <!-- Form -->
+    
+        </div>
+    
+    </div>
+    <!-- Material form login -->
+</div>
+{% endblock %}
